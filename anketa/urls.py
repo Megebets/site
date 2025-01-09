@@ -23,3 +23,4 @@ urlpatterns = [
     path('api/', include('profiles.urls')),
     path('', TemplateView.as_view(template_name='main/main.html'), name='home'),
 ]
+ 

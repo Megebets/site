@@ -35,4 +35,4 @@ def login_view(request):
 
 @login_required
 def profile_view(request):
-    return render(request, 'profiles/profile.html')
+    return render(request, 'profiles/profile.html') 
