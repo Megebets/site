@@ -31,7 +31,7 @@ def login_view(request):
         else:
             messages.error(request, 'Неверный номер телефона или пароль.')
 
-    return render(request, 'login.html')
+    return render(request, 'profiles/login.html')
 
 @login_required
 def profile_view(request):
