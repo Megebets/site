@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход</title>
+  {% load static %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'main/css/main.css' %}" rel="stylesheet">
+</head>
+<body>
+  <main class="login-page container mt-4">
+    <h1 class="login-page__title text-center">Вход</h1>
+    <form method="post" action="{% url 'login' %}" class="login-page__form mx-auto">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{% url 'profile' %}">
+      <div class="form-group">
+        <label for="phone" class="form-label login-page__label">Телефон</label>
+        <input type="tel" id="phone" name="phone" class="form-control login-page__input" required>
+      </div>
+      <div class="form-group">
+        <label for="password" class="form-label login-page__label">Пароль</label>
+        <input type="password" id="password" name="password" class="form-control login-page__input" required>
+      </div>
+      <button type="submit" class="btn btn-primary login-page__button">Войти</button>
+    </form>
+  </main>
+  <footer class="footer bg-dark text-white text-center py-3 mt-4">
+    <p>&copy; 2024 Благотворительная организация "УЮТ". Все права защищены.</p>
+    <p>Свяжитесь с нами: <a href="mailto:example@mail.com" class="footer__link">example@mail.com</a></p>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
