@@ -1,5 +1,17 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from django.contrib import admin
+
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'full_name', 'contact_phone', 'has_parents')  # Укажите нужные поля
+    actions = ['reset_password']
+
+    def reset_password(self, request, queryset):
+        for user in queryset:
+            user.set_password('new_password')  # Укажите желаемый пароль
+            user.save()
+        self.message_user(request, "Пароли были успешно сброшены.")
+    reset_password.short_description = "Сбросить пароль пользователей"
 
 class UserProfile(AbstractUser):
     username = None  # Отключаем стандартное поле username

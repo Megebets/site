@@ -14,13 +14,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from django.views.generic import TemplateView
+from django.contrib import admin  # Импортируем модуль для админ-панели Django
+from django.urls import path, include  # Импортируем функции для маршрутизации (path) и подключения других маршрутов (include)
+from django.views.generic import TemplateView  # Импортируем базовый класс представления для отображения шаблона
 
+# Список маршрутов для проекта
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('profiles.urls')),
+    path('admin/', admin.site.urls),  # Маршрут для админ-панели, доступен по адресу /admin/
+    
+    # Подключаем маршруты из приложения profiles. Все URL с префиксом /api/ будут обрабатываться в profiles.urls.
+    path('api/', include('profiles.urls')),  
+    
+    # Маршрут для главной страницы. Используется TemplateView, который просто отображает шаблон main/main.html.
     path('', TemplateView.as_view(template_name='main/main.html'), name='home'),
 ]
- 

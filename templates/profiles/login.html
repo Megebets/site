@@ -23,6 +23,11 @@
         <input type="password" id="password" name="password" class="form-control login-page__input" required>
       </div>
       <button type="submit" class="btn btn-primary login-page__button">Войти</button>
+      {% if error_message %}
+      <div class="alert alert-danger">
+          {{ error_message }}
+      </div>
+      {% endif %}
     </form>
   </main>
   <footer class="footer bg-dark text-white text-center py-3 mt-4">

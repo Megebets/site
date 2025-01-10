@@ -12,12 +12,14 @@ def register(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.save()
-            return redirect('login')  # Перенаправление на страницу входа
+            login(request, user)  # Автоматический вход после регистрации
+            return redirect('profile')  # Перенаправление на личный кабинет
     else:
         form = RegistrationForm()
     return render(request, 'profiles/register.html', {'form': form})
 
 def login_view(request):
+    context = {}
     if request.method == 'POST':
         phone = request.POST.get('phone')
         password = request.POST.get('password')
@@ -25,13 +27,13 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            # Перенаправление на параметр next или личный кабинет
-            next_url = request.POST.get('next', 'profile')  # Если параметр next отсутствует, редирект на профиль
+            # Проверяем параметр next
+            next_url = request.POST.get('next') or request.GET.get('next') or '/profiles/profile/'
             return redirect(next_url)
         else:
-            messages.error(request, 'Неверный номер телефона или пароль.')
+            context['error_message'] = 'Неверный номер телефона или пароль.'
 
-    return render(request, 'profiles/login.html')
+    return render(request, 'profiles/login.html', context)
 
 @login_required
 def profile_view(request):

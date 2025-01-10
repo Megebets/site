@@ -5,7 +5,7 @@ function RegistrationForm() {
     lastName: "",
     firstName: "",
     middleName: "",
-    phone: "",
+    phone: "+7", // Префикс +7 добавлен по умолчанию
     password: "",
     confirmPassword: "",
   });
@@ -27,9 +27,9 @@ function RegistrationForm() {
         break;
 
       case "phone":
-        const phoneRegex = /^\+?[0-9]{10,15}$/;
+        const phoneRegex = /^\+7\d{10}$/; // Номер должен начинаться с +7 и содержать ровно 10 цифр
         if (!phoneRegex.test(value)) {
-          newErrors[name] = "Введите корректный номер телефона";
+          newErrors[name] = "Введите корректный номер телефона (формат +7XXXXXXXXXX)";
         } else {
           delete newErrors[name];
         }
@@ -60,8 +60,17 @@ function RegistrationForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    validateField(name, value);
+
+    if (name === "phone") {
+      // Удаляем символы, кроме цифр, и добавляем префикс +7
+      const numericValue = value.replace(/\D/g, "").slice(0, 10); // Оставляем только 10 цифр
+      const formattedValue = "+7" + numericValue;
+      setFormData((prev) => ({ ...prev, [name]: formattedValue }));
+      validateField(name, formattedValue);
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+      validateField(name, value);
+    }
   };
 
   const handleSubmit = (e) => {

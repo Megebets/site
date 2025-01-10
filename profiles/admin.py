@@ -1,4 +1,20 @@
-from django.contrib import admin
-from .models import UserProfile
+from django.contrib import admin  # Импорт модуля для работы с административной панелью Django
+from .models import UserProfile  # Импорт модели UserProfile из текущего приложения
 
+# Регистрируем модель UserProfile в административной панели.
+# Это позволяет управлять данными пользователей через интерфейс Django Admin.
 admin.site.register(UserProfile)
+
+
+
+# Объяснение кода
+# Импорт admin:
+
+# Модуль django.contrib.admin предоставляет функционал административной панели Django, которая используется для управления данными приложения.
+# Импорт UserProfile:
+
+# Модель UserProfile — это расширенная или кастомная модель пользователя, определённая в файле models.py текущего приложения.
+# admin.site.register(UserProfile):
+
+# Эта строка регистрирует модель UserProfile в административной панели.
+# После регистрации модель будет доступна в панели администрирования Django по адресу /admin/.

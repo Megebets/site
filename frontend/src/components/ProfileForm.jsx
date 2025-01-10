@@ -57,7 +57,7 @@ function ProfileForm() {
     fetch("/api/profile/", {
       method: "POST",
       headers: {
-        "X-CSRFToken": window.csrfToken, // Используем токен из глобальной переменной
+        "X-CSRFToken": window.csrfToken, // Используем токен из шаблона
       },
       body: formDataToSend,
     })

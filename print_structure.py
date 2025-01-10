@@ -1,23 +1,28 @@
 import os
 
-def print_tree(path, indent=''):
+def print_tree(path, indent='', exclude_dirs=['__pycache__', 'migrations', 'node_modules', 'venv' , '.gitignore']):
     """
     Функция для рекурсивного вывода древовидной структуры каталога.
 
     Args:
         path: Путь к каталогу.
         indent: Отступ для текущего уровня вложенности.
+        exclude_dirs: Список каталогов, которые не будут выводиться.
     """
 
-    for root, dirs, files in os.walk(path):
+    for root, dirs, files in os.walk(path, followlinks=True):
         level = root.replace(path, '').count(os.sep)
         indent = ' ' * 4 * level
-        print(indent + os.path.basename(root))
+        print(indent + os.path.basename(root)) # Убрал encoding, print сам разберется
 
-        dirs[:] = [d for d in dirs if d not in ['__pycache__', 'migrations', 'node_modules', 'venv']]
         for f in files:
-            print(indent + '  ' + f)
+            print(indent + '    ' + f) # Улучшил отступ
 
-# Замените 'путь_к_вашему_проекту' на фактический путь к вашему проекту
-path = 'C:/Users/Sh/Desktop/site/anketa'
+        # Выводим только те каталоги, которые не нужно исключать
+        for d in dirs:
+            if d not in exclude_dirs:
+                print_tree(os.path.join(root, d), indent + '    ') # Улучшил отступ
+
+# Используем raw-строку
+path = r'C:\Users\Sh\Desktop\anketa'
 print_tree(path)
